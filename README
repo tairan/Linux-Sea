@@ -4,11 +4,21 @@ Linux as the example Linux distribution. It does not nor will it ever
 talk about the history of the Linux kernel or Linux distributions or 
 dive into details that are less interesting for Linux users.
 
+从最终用户的角度来看，“Linux Sea” 这本书使用了一种温和的方式来介绍Linux
+操作系统，使用Gentoo这个发行版作为示例。它不谈论任何关于Linux内核的历史
+或者Linux各种发行版，也不深究那些少数Linux用户感兴趣的细节。
+
 For various topics, the online Gentoo Handbook offers a very detailed
 approach and as such is mandatory reading for any Gentoo Linux user who
 wants to know the full power of this Operating System. Although there is
 definitely overlap between "Linux Sea" and the online Gentoo Handbook,
 "Linux Sea" is by no means meant to replace the online Gentoo Handbook.
 
+关于主题的冲突，那些想成为Gentoo高手的Linuxer，Gentoo Handbook提供了详细的
+在线文档。尽管“Linux Sea”和在线的Gentoo Handbook有一些重叠的内容，但是
+“Linux Sea”并不是为了替代在线的Gentoo Handbook。
+
 "Linux Sea" will attempt to focus on topics that everyday users would
 probably need to know to continue working with Gentoo Linux.
+
+“Linux Sea”会将主要的焦点放在那些Gentoo Linux日常使用的内容上。
