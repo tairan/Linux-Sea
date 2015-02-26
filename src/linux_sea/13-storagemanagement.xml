@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter version="5.0" xml:id="storagemanagement"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook"
+	 xmlns:xl="http://www.w3.org/1999/xlink">
   <title>Storage Management</title>
 
   <section>
@@ -18,8 +24,8 @@
     in the <filename>fstab</filename> file.</para>
   </section>
 
-  <section>
-    <title id="hdpartitions">Hard Disk Partitions</title>
+  <section xml:id="hdpartitions">
+    <title>Hard Disk Partitions</title>
 
     <para>The most common storage is a hard disk partition. I'll only cover
     the x86 partitions as those are most used at this moment.</para>
@@ -82,8 +88,9 @@
       called <filename>/dev/sdb</filename>, third
       <filename>/dev/sdc</filename>, ...</para>
 
-      <para>IDE disks are called <filename>/dev/hda</filename> (b, c, d, ...).
-      Unlike SCSI/SATA disks, IDE disks are labelled based upon their position
+      <para>IDE disks are nowadays also called 
+      <filename>/dev/sda</filename> (b, c, d, ...).
+      Unlike SCSI/SATA disks, IDE disks are labeled based upon their position
       in the computer. Every IDE controller (which is where the disks are
       attached to) has a certain position in the computer. The first
       controller manages the disks a, b, c and d; the second controller
@@ -91,15 +98,15 @@
       disks: the first two are called the primary disks, the last two are
       called the secondary disks. Every pair of disks has a master (first
       disk) and slave (second disk). So, the primary master disk of the first
-      IDE controller is <filename>/dev/hda</filename>, the secondary slave
+      IDE controller is <filename>/dev/sda</filename>, the secondary slave
       disk of the second IDE controller would be
-      <filename>/dev/hdh</filename>.</para>
+      <filename>/dev/sdh</filename>.</para>
 
       <para>To find out which disk devices are detected on your system, you
       can list the contents of <filename>/dev/disk/by-path</filename>:</para>
 
       <programlisting># <command>ls -l /dev/disk/by-path</command>
-lrwxrwxrwx 1 root root  9 2009-12-05 23:35 pci-0000:00:1f.1 -&gt; ../../hda
+lrwxrwxrwx 1 root root  9 2009-12-05 23:35 pci-0000:00:1f.1 -&gt; ../../sda
 lrwxrwxrwx 1 root root  9 2009-12-05 23:35 pci-0000:00:1f.2-scsi-0:0:0:0 -&gt; ../../sda
 lrwxrwxrwx 1 root root 10 2009-12-05 23:35 pci-0000:00:1f.2-scsi-0:0:0:0-part1 -&gt; ../../sda1
 lrwxrwxrwx 1 root root 10 2009-12-05 23:35 pci-0000:00:1f.2-scsi-0:0:0:0-part2 -&gt; ../../sda2
@@ -114,7 +121,7 @@ lrwxrwxrwx 1 root root 10 2009-12-05 23:35 pci-0000:00:1f.2-scsi-0:0:0:0-part8 -
       <filename>/sys/block</filename>:</para>
 
       <programlisting># <command>ls /sys/block</command>
-hda  loop0   loop1   loop2   loop3    sda</programlisting>
+sda  loop0   loop1   loop2   loop3    sda</programlisting>
 
       <para>Now, fire up fdisk to edit the partitions on /dev/sda:</para>
 
@@ -178,9 +185,9 @@ Command (m for help): </programlisting>
         physical memory is full.</para>
 
         <para>An example partitioning scheme is given in <xref
-        linkend="partschemetable" />.</para>
+        linkend="partschemetable"/>.</para>
 
-        <table id="partschemetable">
+        <table xml:id="partschemetable">
           <title>Example partitioning scheme for a Linux desktop</title>
 
           <tgroup cols="3">
@@ -395,7 +402,7 @@ Changed system type of partition 4 to 82 (Linux swap)</programlisting>
       available as an empty space, but has no file system on it. File systems
       are mandatory to use as they structure the partition and allow the
       operating system to manage files, directories and more on the partition.
-      We covered this already in <xref linkend="filesystems" />.</para>
+      We covered this already in <xref linkend="filesystems"/>.</para>
 
       <para>To place a file system on a partition you need to use the
       <command>mkfs.&lt;type&gt;</command><indexterm>
@@ -469,7 +476,7 @@ Changed system type of partition 4 to 82 (Linux swap)</programlisting>
 
         <para>To enable a file system on a partition, you need to mount it on
         your file system. This has already been covered in <xref
-        linkend="mountsection" />.</para>
+        linkend="mountsection"/>.</para>
       </section>
 
       <section>
@@ -479,10 +486,10 @@ Changed system type of partition 4 to 82 (Linux swap)</programlisting>
         to mount the file system (or when the system tries to automatically
         mount the file system for you):</para>
 
-        <programlisting>/dev/hda4:
+        <programlisting>/dev/sda4:
 The superblock could not be read or does not describe a correct ext2
 filesystem. If the device is valid and it really contains an ext2
-filesystem (and not swap or ufs or something else), the the superblock
+filesystem (and not swap or ufs or something else), the superblock
 is corrupt, and you might try running e2fsck with an alternate superblock:
          e2fsck -b 8193 &lt;device&gt;
 
@@ -492,7 +499,7 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
         and try executing the command that the output gave:</para>
 
         <programlisting>(The proposed command will vary depending on file system used)
-~# <command>e2fsck -b 8193 /dev/hda4</command></programlisting>
+~# <command>e2fsck -b 8193 /dev/sda4</command></programlisting>
 
         <para>If the <command>e2fsck</command><indexterm>
             <primary>e2fsck</primary>
@@ -502,7 +509,7 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
         that means that there are thousands of files corrupt), it might be
         easier to tell e2fsck to just acknowledge them all for you:</para>
 
-        <programlisting>~# <command>e2fsck -y /dev/hda4</command></programlisting>
+        <programlisting>~# <command>e2fsck -y /dev/sda4</command></programlisting>
       </section>
     </section>
 
@@ -674,7 +681,7 @@ is corrupt, and you might try running e2fsck with an alternate superblock:
         which device file is used is to filter the <command>dmesg</command>
         output for text such as "removable media":</para>
 
-        <programlisting>~# <command>dmesg | grep 'removable media'</command>
+        <programlisting>~# <command>dmesg | grep 'removable'</command>
 sd 4:0:0:0: [sdb] Attached SCSI removable disk</programlisting>
 
         <para>In this example, the hardware device file is for /dev/sdb. The
@@ -695,62 +702,6 @@ sd 4:0:0:0: [sdb] Attached SCSI removable disk</programlisting>
 /dev/disk/by-id/usb-_USB_DISK_2.0_07891E600025-0:0-part1
 /dev/disk/by-path/pci-0000:00:1d.7-usb-0:1:1.0-scsi-0:0:0:0-part1
 /dev/block/8:17</programlisting>
-      </section>
-    </section>
-
-    <section>
-      <title>Automounting Devices</title>
-
-      <para>You can also have Linux configured so that removable media is
-      automatically mounted. In almost all cases, this is done through a
-      deamon process provided by the desktop environment. It starts with
-      hal...</para>
-
-      <section>
-        <title id="HAL">Using HAL</title>
-
-        <para>The <command>hal</command><indexterm>
-            <primary>hal</primary>
-          </indexterm> (Hardware Abstraction Layer) software daemon provides
-        an interface to other programs about plugged in hardware. It attempts
-        to provide an abstraction layer on top of the device: is the device an
-        USB stick or a digital camera plugged in through USB? The idea is that
-        a multitude of hardware devices should be seen as the same kind of
-        hardware devices (so the same actions need to be taken when the device
-        is plugged in), regardless of brand and type.</para>
-
-        <para>In effect, <command>hal</command> itself isn't sufficient to
-        automatically mount a device, but it is part of a more global
-        architecture. For instance, with GNOME, you need
-        <command>hal</command>, <command>dbus</command> and
-        <command>gnome-volume-manager</command>. The tool that actually does
-        the auto-mounting is <command>gnome-volume-manager</command>. It
-        listens for hal events through <command>dbus</command><indexterm>
-            <primary>dbus</primary>
-          </indexterm> (which is a service that allows processes to
-        communicate with each other through a unified specification). The hal
-        software gets an event from udev (which we've seen before), identifies
-        the hardware and submits an event to dbus.</para>
-
-        <para>If you have GNOME installed, these tools are probably already
-        set up. You can configure the <command>hal</command> device manager
-        through the GNOME menu (Desktop &gt; Administration &gt; Device
-        Manager) as you can for the GNOME volume manager (Desktop &gt;
-        Preferences &gt; Removable Drives and Media).</para>
-
-        <para>If you use KDE, the necessary tools are probably installed as
-        well (only the volume manager isn't called gnome-volume-manager
-        ;-).</para>
-
-        <para>In both cases I say "probably", because many packages rely on
-        USE flags to decide if a certain functionality needs to be enabled
-        (check the hal USE flag).</para>
-
-        <programlisting>$ <command>emerge -pv kdebase</command>
-[ebuild   R   ] kde-base/kdebase-3.5.9-r3  USE="branding cups hal
-java ldap opengl pam -arts -debug -ieee1394 -joystick 
--kdeenablefinal -kdehiddenvisibility -lm_sensors -logitech-mouse
--openexr -samba -xcomposite -xinerama -xscreensaver"  0 kB</programlisting>
       </section>
     </section>
   </section>
@@ -977,7 +928,7 @@ none         tmpfs    754M     0  754M   0% /dev/shm
         </listitem>
 
         <listitem>
-          <para>the packages location, wheren Gentoo Portage stores the binary
+          <para>the packages location, wherein Gentoo Portage stores the binary
           package builds of the packages you install (this is not on by
           default, but I recommend it if you have sufficient amount of space
           as it can help you recover from certain disasters quickly), can be
@@ -1095,7 +1046,7 @@ none         tmpfs    754M     0  754M   0% /dev/shm
       when the system will start complaining, the hard limit is a final limit
       - the user or group cannot go beyond that.</para>
 
-      <para>To use quota, first install the qouta utilities.</para>
+      <para>To use quota, first install the quota utilities.</para>
 
       <programlisting># <command>emerge sys-fs/quota</command></programlisting>
 
@@ -1136,21 +1087,16 @@ none         tmpfs    754M     0  754M   0% /dev/shm
 
     <itemizedlist>
       <listitem>
-        <para><ulink url="http://tldp.org/HOWTO/Partition/">Linux Partition
-        HOWTO</ulink>, section "<ulink
-        url="http://tldp.org/HOWTO/Partition/fdisk_partitioning.html">Partitioning
-        with fdisk</ulink>"</para>
+        <para><link xl:href="http://tldp.org/HOWTO/Partition/">Linux Partition
+        HOWTO</link>, section "<link
+        xl:href="http://tldp.org/HOWTO/Partition/fdisk_partitioning.html">Partitioning
+        with fdisk</link>"</para>
       </listitem>
 
       <listitem>
-        <para><ulink url="http://www.mythic-beasts.com/~mark/random/hal/">HAL
-        and device management</ulink>, written by Mark Longair</para>
-      </listitem>
-
-      <listitem>
-        <para><ulink
-        url="http://docs.kde.org/stable/en/kdebase-runtime/userguide/multimedia.html">Multimedia
-        with KDE</ulink>, part of KDE base documentation</para>
+        <para><link
+        xl:href="http://docs.kde.org/stable/en/kdebase-runtime/userguide/multimedia.html">Multimedia
+        with KDE</link>, part of KDE base documentation</para>
       </listitem>
     </itemizedlist>
   </section>

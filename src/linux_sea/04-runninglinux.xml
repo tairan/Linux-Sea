@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter version="5.0" xml:id="runninglinux"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook"
+	 xmlns:xl="http://www.w3.org/1999/xlink">
   <title>Running Linux</title>
 
   <section>
@@ -12,8 +18,8 @@
     but you can use other environments such as Linux Live CDs (bootable CDs
     with a ready-to-run operating system on it). Installing Linux is very
     distribution-specific and Gentoo's installation procedure is well
-    documented on the <ulink
-    url="http://www.gentoo.org/doc/en/handbook">Gentoo site</ulink>. I will
+    documented on the <link
+    xl:href="http://www.gentoo.org/doc/en/handbook">Gentoo site</link>. I will
     not discuss the installation procedure yet. Later in this book, I will
     focus on the command-line Gentoo installation because then you'll have a
     much better view on the various installation steps. Right now, I'm going
@@ -30,8 +36,8 @@
     Linux). Finally, I cover how to find help on the commands.</para>
   </section>
 
-  <section>
-    <title id="runninglinux_systemarchitecture">System Architecture</title>
+  <section xml:id="runninglinux_systemarchitecture">
+    <title>System Architecture</title>
 
     <para>Linux is a multi-user platform. The administrator user is called the
     <emphasis>root</emphasis><indexterm>
@@ -232,7 +238,7 @@
         </indexterm>, which is named "<filename>/</filename>"<indexterm>
           <primary>/</primary>
         </indexterm>. Below you'll have files and directories, following the
-      standard described in a previous section, <xref linkend="fhs" />. Every
+      standard described in a previous section, <xref linkend="fhs"/>. Every
       position within the structure has its meaning. An example is
       <filename>/home/swift</filename>, which is the home directory of the
       "swift" user account. Another example is
@@ -360,9 +366,9 @@
       </itemizedlist>
 
       <para>The restriction deletion flag needs some explanation. It is used
-      on world-writeable directories (a well-known example is
+      on world-writable directories (a well-known example is
       <filename>/tmp</filename>, where temporary files can be stored) and used
-      to prevent users to remove files they didn't create. A world-writeable
+      to prevent users to remove files they didn't create. A world-writable
       directory would otherwise allow other users to remove files from that
       directory (as they too have write access to the directory). The
       restriction deletion flag is also known as the
@@ -380,7 +386,7 @@
     Linux, this isn't the case. Rather, you'll be greeted with a command-line
     prompt asking you to identify yourself:</para>
 
-    <programlisting>This is seaheaven.homeworld (Linux i686 2.6.23) 22:30:00
+    <programlisting>This is seaheaven.homeworld (Linux x86_64 3.8.5) 22:30:00
 
 seaheaven login: </programlisting>
 
@@ -460,7 +466,7 @@ seaheaven login: </programlisting>
 /home/captain
 captain@seaheaven ~ $ <command>ls</command>
 Documents     Movies       Music       Pictures
-opentasks.txt
+TODO
 captain@seaheaven ~ $ <command>cd Documents</command>
 captain@seaheaven Documents $ <command>pwd</command>
 /home/captain/Documents</programlisting>
@@ -561,11 +567,11 @@ $ <command>pwd</command>
       directory) but also information about each file / directory:</para>
 
       <programlisting>captain@seaheaven ~ $ <command>ls -l</command>
-drwxr-xr-x 2 captain users 4096 2007-10-31 22:24 Documents
-drwxr-xr-x 2 captain users 4096 2007-10-31 22:24 Movies
-drwxr-xr-x 2 captain users 4096 2007-10-31 22:25 Music
-drwxr-xr-x 2 captain users 4096 2007-10-31 22:24 Pictures
--rw-r--r-- 1 captain users   66 2007-10-31 22:30 opentasks.txt</programlisting>
+drwxr-xr-x 2 captain users 4096 2013-10-31 22:24 Documents
+drwxr-xr-x 2 captain users 4096 2013-10-31 22:24 Movies
+drwxr-xr-x 2 captain users 4096 2013-10-31 22:25 Music
+drwxr-xr-x 2 captain users 4096 2013-10-31 22:24 Pictures
+-rw-r--r-- 1 captain users   66 2013-10-31 22:30 TODO</programlisting>
 
       <para>The information contains, amongst other things, the permission
       sets (three times three characters: Read, Write and eXecute), the owning
@@ -637,12 +643,12 @@ Documents    Movies    Music    Pictures
         a file name, the file is copied to that file(name).</para>
 
         <programlisting>captain@seaheaven ~ $ <command>ls Documents</command>
-captain@seaheaven ~ $ <command>cp opentasks.txt Documents/tasks.txt</command>
+captain@seaheaven ~ $ <command>cp TODO Documents/tasks.txt</command>
 captain@seaheaven ~ $ <command>ls Documents</command>
 tasks.txt
-captain@seaheaven ~ $ <command>cp opentasks.txt Documents</command>
+captain@seaheaven ~ $ <command>cp TODO Documents</command>
 captain@seaheaven ~ $ <command>ls Documents</command>
-opentasks.txt      tasks.txt</programlisting>
+TODO      tasks.txt</programlisting>
 
         <para>By default, the <command>cp</command> command creates the
         destination file with the privileges and ownership of the user that is
@@ -680,11 +686,13 @@ $ <command>ls -l inittab</command>
         <filename>Documents</filename> folder to the
         <filename>/media/usb/workdocuments</filename> directory:</para>
 
-        <programlisting>captain@seaheaven ~ $ <command>mv Documents/tasks.txt /media/usb/workdocuments</command>
-captain@seaheaven ~ $ <command>ls</command>
-opentasks.txt     tasks.txt
+        <programlisting>captain@seaheaven ~ $ <command>ls Documents/</command>
+TODO     tasks.txt
+captain@seaheaven ~ $ <command>mv Documents/tasks.txt /media/usb/workdocuments</command>
+captain@seaheaven ~ $ <command>ls Documents/</command>
+TODO
 captain@seaheaven ~ $ <command>ls /media/usb/workdocuments</command>
-opentasks.txt</programlisting>
+tasks.txt</programlisting>
       </section>
 
       <section>
@@ -700,7 +708,7 @@ opentasks.txt</programlisting>
         recursive: the directory and every file and directory inside
         it).</para>
 
-        <programlisting>captain@seaheaven ~ $ <command>rm Documents/opentasks.txt</command>
+        <programlisting>captain@seaheaven ~ $ <command>rm Documents/TODO</command>
 captain@seaheaven ~ $ <command>rm tasks.txt</command></programlisting>
 
         <para>A popular set of options to <command>rm</command> is
@@ -735,17 +743,17 @@ rm: cannot remove '/etc/passwd': Permission denied</programlisting>
         it shows you the main editor screen for a new file. If you launch nano
         with a file name as its argument, it opens up the text file, ready for
         editing. As an example, I open up the
-        <filename>opentasks.txt</filename> file using nano:</para>
+        <filename>TODO</filename> file using nano:</para>
 
-        <programlisting>captain@seaheaven ~ $ <command>nano opentasks.txt</command></programlisting>
+        <programlisting>captain@seaheaven ~ $ <command>nano TODO</command></programlisting>
 
         <figure float="">
-          <title>nano editor opened with the opentasks.txt file as its working
+          <title>nano editor opened with the TODOfile as its working
           document</title>
 
           <mediaobject>
             <imageobject>
-              <imagedata align="left" fileref="images/nano.png" width="10cm" />
+              <imagedata align="left" fileref="images/nano.png" width="10cm"/>
             </imageobject>
           </mediaobject>
         </figure>
@@ -760,7 +768,7 @@ rm: cannot remove '/etc/passwd': Permission denied</programlisting>
         files are the most important ones. By default, nano automatically
         wraps lines when you hit the sidebar. To inform nano that you want to
         keep lines as they are, add the "<command>-w</command>" argument:
-        "<command>nano -w opentasks.txt</command>". This is the recommended
+        "<command>nano -w TODO</command>". This is the recommended
         approach when editing configuration files.</para>
       </section>
 
@@ -882,7 +890,7 @@ rm: cannot remove '/etc/passwd': Permission denied</programlisting>
       reference is a location string, which allows the link to be used across
       media and even to files that don't exist (any more). As an example, you
       could have a symbolic link that points to
-      <filename>/home/swift/opentasks.txt</filename>, even when this file
+      <filename>/home/swift/TODO</filename>, even when this file
       doesn't exist (any more).</para>
 
       <para><emphasis>Hard links</emphasis><indexterm>
@@ -911,7 +919,7 @@ $ <command>ln -s targetfilename newfilename</command></programlisting>
       instance, you can have an important text file located inside
       <filename>~/Documents/Work/Thesis/myThesis.txt</filename> but link to it
       from your home directory (<filename>~/myThesis.txt</filename> points to
-      <filename>~/Documents/Work/Thesis/MyThesis.txt</filename>) so that you
+      <filename>~/Documents/Work/Thesis/myThesis.txt</filename>) so that you
       don't have to traverse all these directories every time you want to
       open/edit the file.</para>
     </section>
@@ -922,12 +930,12 @@ $ <command>ln -s targetfilename newfilename</command></programlisting>
       <para>A powerful feature of most Linux shells is file and command
       completion.</para>
 
-      <para>When you want to edit a file called, for instance, opentasks.txt,
-      you can start with typing "<command>nano o</command>" followed by the
-      &lt;tab&gt; key. If <filename>opentasks.txt</filename> is the only file
-      or directory that starts with an o, the shell will automatically expand
-      the command to "<filename>nano opentasks.txt</filename>". If there are
-      more files or directories that start with o, typing &lt;tab&gt; twice
+      <para>When you want to edit a file called, for instance, TODO,
+      you can start with typing "<command>nano T</command>" followed by the
+      &lt;tab&gt; key. If <filename>TODO</filename> is the only file
+      or directory that starts with an T, the shell will automatically expand
+      the command to "<filename>nano TODO</filename>". If there are
+      more files or directories that start with T, typing &lt;tab&gt; twice
       will show you a list of candidates.</para>
 
       <para>The same is true for commands. If nano is the only command
@@ -976,7 +984,7 @@ $ <command>na</command></programlisting>
 
       <programlisting>captain@seaheaven ~ $ <command>exit</command>
 
-This is seaheaven.homeworld (Linux i686 2.6.23) 22:30:00
+This is seaheaven.homeworld (Linux x86_64 3.8.5) 22:30:00
 
 seaheaven login: </programlisting>
     </section>
@@ -1277,6 +1285,12 @@ $ <command>bunzip2 -c algoritm.txt.bz2 &gt; ~/algorithm.txt</command></programli
       on the screen, but rather redirected into a file
       (<filename>algorithm.txt</filename>). Redirection is discussed later
       on.</para>
+
+      <para>It is also possible to immediately read the (compressed) file
+      using the <command>bzless</command> command:</para>
+
+      <programlisting>$ <command>bzless algorithm.txt.bz2</command></programlisting>
+
     </section>
 
     <section>
@@ -1323,11 +1337,11 @@ $ <command>bunzip2 -c algoritm.txt.bz2 &gt; ~/algorithm.txt</command></programli
 
     <itemizedlist>
       <listitem>
-        <para><ulink
-        url="http://www.tldp.org/LDP/intro-linux/html/index.html">Introduction
-        to Linux, A Hands-On Guide</ulink> by Machtelt Garrels (also available
-        as <ulink
-        url="http://www.tldp.org/LDP/intro-linux/intro-linux.pdf">PDF</ulink>)</para>
+        <para><link
+        xl:href="http://www.tldp.org/LDP/intro-linux/html/index.html">Introduction
+        to Linux, A Hands-On Guide</link> by Machtelt Garrels (also available
+        as <link
+        xl:href="http://www.tldp.org/LDP/intro-linux/intro-linux.pdf">PDF</link>)</para>
       </listitem>
     </itemizedlist>
   </section>

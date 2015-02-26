@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter version="5.0" xml:id="installgentoo"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook"
+	 xmlns:xl="http://www.w3.org/1999/xlink">
   <title>Installing Gentoo Linux</title>
 
   <section>
     <title>Introduction</title>
 
     <para>I've waited a few chapters before I started discussing the Gentoo
-    Linux installation because it isn't for the faint of hearted. Although
+    Linux installation because it isn't for the faint of heart. Although
     Gentoo has tried to offer a graphical installer in the past, its user- and
     developer base swore by the manual installation approach. As a result, the
     graphical installer has been deprecated and the installation procedure is
@@ -17,10 +23,10 @@
     <para>With the previous chapters discussed, you should now be able to
     install a Gentoo Linux yourself with the following simple set of
     instructions. However, if you want to do it the official way, do not
-    hesitate to read the <ulink
-    url="http://www.gentoo.org/doc/en/handbook/handbook-x86.xml">Gentoo
-    Handbook</ulink>. There are also <ulink type=""
-    url="http://www.gentoo.org/doc/en/handbook">handbooks</ulink> available
+    hesitate to read the <link
+    xl:href="http://www.gentoo.org/doc/en/handbook/handbook-x86.xml">Gentoo
+    Handbook</link>. There are also <link type=""
+    xl:href="http://www.gentoo.org/doc/en/handbook">handbooks</link> available
     for other architectures.</para>
 
     <section>
@@ -43,7 +49,7 @@
 
       <para>Disk space aside, Gentoo Linux can run and install with almost any
       system specification. Of course, the lower the specs, the higher the
-      duration of an installation. Installing Gentoo Linux on a i486 with 32
+      duration of an installation. Installing Gentoo Linux on an i486 with 32
       Mbyte of memory is doable (but not recommended).</para>
     </section>
   </section>
@@ -55,8 +61,8 @@
     use any Linux environment you want, but most people suggest to use a
     LiveCD.</para>
 
-    <para>A popular LiveCD to install Gentoo from is <ulink
-    url="http://www.sysresccd.org">System Rescue CD</ulink>. All necessary
+    <para>A popular LiveCD to install Gentoo from is <link
+    xl:href="http://www.sysresccd.org">System Rescue CD</link>. All necessary
     documentation about booting the CD, including setting up networking (which
     you definitely need to do in order to install Gentoo) is available on the
     site.</para>
@@ -84,9 +90,9 @@
 
     <para>First, mount all the necessary partitions onto your Linux
     environment. In the rest of this chapter I will assume the partitioning
-    layout as described inthe following table:</para>
+    layout as described in the following table:</para>
 
-    <table id="example_partitiontable">
+    <table xml:id="example_partitiontable">
       <title>Example partition layout</title>
 
       <tgroup cols="3">
@@ -164,9 +170,9 @@
 
     <programlisting>~# <command>ntpdate pool.ntp.org</command></programlisting>
 
-    <para>Next, surf to the <ulink
-    url="http://www.gentoo.org/main/en/mirrors2.xml">Gentoo mirror
-    list</ulink> and pick a mirror close to you. On most LiveCDs browsers are
+    <para>Next, surf to the <link
+    xl:href="http://www.gentoo.org/main/en/mirrors2.xml">Gentoo mirror
+    list</link> and pick a mirror close to you. On most LiveCDs browsers are
     available. On the sysresccd you can use links or lynx (command-line
     browsers). Navigate to releases, select your architecture, autobuilds, the
     latest date directory to find a listing of stage3 files and install
@@ -196,8 +202,8 @@
     <programlisting># <command>cd /mnt/gentoo</command>
 # <command>wget http://gentoo.osuosl.org/releases/x86/autobuilds/20091201/stage3-i686-20091201.tar.bz2</command></programlisting>
 
-    <para>On many forums, you will find the notion of "funtoo" stages. <ulink
-    url="http://www.funtoo.org">Funtoo</ulink> is, to say it in the author's
+    <para>On many forums, you will find the notion of "funtoo" stages. <link
+    xl:href="http://www.funtoo.org">Funtoo</link> is, to say it in the author's
     own words (who happens to be Daniel Robbins, the founder of Gentoo Linux),
     a Gentoo Linux variant which offers freshly-built Gentoo Linux stable
     stages using Gentoo's official stable branch. You can use a funtoo stage
@@ -208,23 +214,14 @@
     instructions nevertheless. At the time of writing, the instructions are
     quite resembling.</para>
 
-    <para>Next, go back a few directories until you can select snapshots.
-    Enter this directory and download the latest
-    <filename>portage-&lt;date&gt;.tar.bz2</filename> you can find. Store it
-    in <filename>/mnt/gentoo</filename> as well. Finally, quit your browser
-    and extract the downloaded files on your installation location.</para>
+    <para>
+    Finally, quit your browser
+    and extract the downloaded files on your installation location.
+    </para>
 
-    <programlisting>~# <command>tar xvjpf stage3-*.tar.bz2</command>
-~# <command>tar xvjf portage-*.tar.bz2 -C /mnt/gentoo/usr</command></programlisting>
+    <programlisting>~# <command>tar xvjpf stage3-*.tar.bz2</command></programlisting>
 
-    <para>Again, you can use <command>wget</command> if you want:</para>
-
-    <programlisting># <command>wget http://gentoo.osuosl.org/snapshots/portage-latest.tar.bz2</command></programlisting>
-
-    <para>The <filename>portage-</filename> file is a snapshot of Gentoo's
-    Portage tree.</para>
-
-    <para>Next, edit the <filename>/mnt/gentoo/etc/make.conf</filename> file.
+    <para>Next, edit the <filename>/mnt/gentoo/etc/portage/make.conf</filename> file.
     As discussed previously, this file contains variables that define Portage'
     behaviour. Right now I'm focussing on the variables CFLAGS, CXXFLAGS and
     MAKEOPTS...</para>
@@ -269,7 +266,7 @@
       function properly and that both kernel data and device drivers are
       available inside the chroot:</para>
 
-      <programlisting>~# <command>cp -L /etc/resolv.conf /mnt/gentoo/resolv.conf</command>
+      <programlisting>~# <command>cp -L /etc/resolv.conf /mnt/gentoo/etc/resolv.conf</command>
 ~# <command>mount -t proc none /mnt/gentoo/proc</command>
 ~# <command>mount -o bind /dev /mnt/gentoo/dev</command></programlisting>
     </section>
@@ -296,7 +293,7 @@
       <para>Now, update the Portage tree to make sure you have the current set
       of packages at your disposal:</para>
 
-      <programlisting>~# <command>emerge --sync</command></programlisting>
+      <programlisting>~# <command>mkdir /usr/portage; emerge-webrsync;</command></programlisting>
 
       <para>Next, select a Gentoo profile for your environment. A
       <emphasis>Gentoo profile</emphasis><indexterm>
@@ -304,18 +301,17 @@
         </indexterm> is a collection of default Portage settings. If you want
       to know what a particular profile selects of default settings, check out
       its content at <filename>/usr/portage/profiles</filename> (and don't
-      forget to read up on cascading profiles). Currently, the 2008.0 set of
-      profiles is the stable, default one. The 10.0 set of profiles is still
-      being developed for the upcoming Gentoo 10 release.</para>
+      forget to read up on cascading profiles). Currently, the '13.0' set of
+      profiles is the stable, default one. </para>
 
       <programlisting>~# <command>eselect profile list</command>
 ~# <command>eselect profile set &lt;number&gt;</command></programlisting>
 
       <para>Finally, set the USE flags you want in either
-      <filename>/etc/make.conf</filename> (global USE flags) or
+      <filename>/etc/portage/make.conf</filename> (global USE flags) or
       <filename>/etc/portage/package.use</filename> (local USE flags).</para>
 
-      <programlisting>~# <command>nano -w /etc/make.conf</command></programlisting>
+      <programlisting>~# <command>nano -w /etc/portage/make.conf</command></programlisting>
 
       <para>For those of you who want to run Gentoo Linux with support for
       international locales, edit <filename>/etc/locale.gen</filename> and

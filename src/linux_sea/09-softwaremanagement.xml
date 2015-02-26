@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter version="5.0" xml:id="softwaremanagement"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
   <title>Software Management</title>
 
   <section>
@@ -38,7 +43,7 @@
       <orderedlist>
         <listitem>
           <para>Software titles that would take a very long time to build on a
-          users' system (such as the popular OpenOffice.org office suite) are
+          users' system (such as the popular LibreOffice.org office suite) are
           available as binary packages. In this case, Gentoo downloads the
           binary files and installs those on the file system.</para>
         </listitem>
@@ -167,103 +172,32 @@
 
       <para>Most applications have optional support for one or more tools and
       libraries. For instance, at the time of writing, the Mozilla Firefox
-      application in Gentoo supports the following USE flags:</para>
+      application in Gentoo supports the following use flags (I dropped the
+      various linguas flags which enable/disable support for certain language
+      locales in the output to make it more readable):</para>
 
-      <table>
-        <title>USE flags in use by Mozilla Firefox version 9.0</title>
-
-        <tgroup cols="2">
-          <thead>
-            <row>
-              <entry>USE flag</entry>
-
-              <entry>Support description</entry>
-            </row>
-          </thead>
-
-          <tbody>
-	    <row>
-	      <entry>also</entry>
-	      <entry>Enable support for ALSA, the Advanced Linux Sound Architecture</entry>
-	    </row>
-	    <row>
-	      <entry>crashreporter</entry>
-	      <entry>Enable support for the firefox crash reporting plugin</entry>
-	    </row>
-	    <row>
-	      <entry>custom-cflags</entry>
-	      <entry>Build with user-specific CFLAGS (this removes any filtering the ebuild does). Note that
-	      you loose support when you enable this for Firefox</entry>
-	    </row>
-	    <row>
-	      <entry>custom-optimization</entry>
-	      <entry>Fine-tune custom compiler optimizations (not recommended)</entry>
-	    </row>
-	    <row>
-	      <entry>dbus</entry>
-	      <entry>Enable support for DBUS</entry>
-	    </row>
-	    <row>
-	      <entry>ipc</entry>
-	      <entry>Use inter-process communication between tabs and plugins. Allows for greater stability in case of plugin crashes</entry>
-	    </row>
-	    <row>
-	      <entry>libnotify</entry>
-	      <entry>Enable desktop notification support</entry>
-	    </row>
-	    <row>
-	      <entry>pgo</entry>
-	      <entry>Add support for profile-guided optimization using gcc-4.5, for faster binaries.</entry>
-	    </row>
-	    <row>
-	      <entry>startup-notification</entry>
-	      <entry>Enable application startup event feedback mechanism</entry>
-	    </row>
-	    <row>
-	      <entry>system-sqlite</entry>
-	      <entry>Use the system-wide sqlite installation with secure-delete enabled</entry>
-	    </row>
-	    <row>
-	      <entry>webm</entry>
-	      <entry>Use system media-libs/libvpx for HTML5 WebM video support</entry>
-	    </row>
-	    <row>
-	      <entry>wifi</entry>
-	      <entry>Enable wireless network functions</entry>
-	    </row>
-            <row>
-              <entry>gnome</entry>
-
-              <entry>Enables support for the GNOME user interface (within
-              Firefox) as well as GNOME file system event support</entry>
-            </row>
-
-            <row>
-              <entry>java</entry>
-
-              <entry>Enables support for the java plug-in</entry>
-            </row>
-
-            <row>
-              <entry>bindist</entry>
-
-              <entry>Disables the official Mozilla Firefox branding (unless
-              USE="iceweasel" is selected) so that you can distribute prebuilt
-              versions of the package across your network or even across the
-              Internet.</entry>
-            </row>
-
-            <row>
-              <entry>debug</entry>
-
-              <entry>Enables debugging support (which makes the software
-              larger and slower, but allows developers to debug possible bugs
-              in the software)</entry>
-            </row>
-
-          </tbody>
-        </tgroup>
-      </table>
+      <programlisting>$ <command>equery uses firefox</command>
+ + + alsa                 : Add support for media-libs/alsa-lib (Advanced Linux Sound Architecture)
+ - - bindist              : Disable official Firefox branding (icons, name) which are not binary-redistributable according to upstream.
+ - - custom-cflags        : Build with user-specified CFLAGS (unsupported)
+ - - custom-optimization  : Fine-tune custom compiler optimizations, setting this is not recommended.
+ + + dbus                 : Enable dbus support for anything that needs it (gpsd, gnomemeeting, etc)
+ - - debug                : Enable extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see http://www.gentoo.org/proj/en/qa/backtraces.xml
+ - - gstreamer            : Add support for media-libs/gstreamer (Streaming media)
+ - - jit                  : Enable just-in-time compilation for improved performance. May prevent use of some PaX memory protection features in Gentoo Hardened.
+ - - libnotify            : Enable desktop notification support
+ + + minimal              : Prevent sdk and headers from being installed
+ - - pulseaudio           : Add support for PulseAudio sound server
+ - - startup-notification : Enable application startup event feedback mechanism
+ - - system-cairo         : Use the system-wide x11-libs/cairo Use system cairo instead of bundled.
+ - - system-jpeg          : Use the system-wide media-libs/libjpeg-turbo Use system jpeg instead of bundled.
+ - - system-sqlite        : Use the system-wide dev-db/sqlite installation with secure-delete enabled
+ - - wifi                 : Enable wireless network functions
+[ Legend : U - final flag setting for installation]
+[        : I - package is installed with flag     ]
+[ Colors : set, unset                             ]
+ * Found these USE flags for www-client/firefox-23.0:
+ U I</programlisting>
 
       <para>Other distributions choose what support they want enabled and what
       not when building the software. Because with Gentoo, you build the
@@ -271,10 +205,10 @@
       features based on your USE flags.</para>
 
       <para>You can set your global USE flags inside
-      <filename>/etc/make.conf</filename>. To disable a USE flag, prepend it
-      with the minus sign.</para>
+      <filename>/etc/portage/make.conf</filename>. To disable a USE flag,
+      prepend it with the minus sign.</para>
 
-      <programlisting># <command>nano -w /etc/make.conf</command>
+      <programlisting># <command>nano -w /etc/portage/make.conf</command>
 <remark>(...)</remark>
 USE="acpi apm pmu sasl howl -cdr -dvdread ..."</programlisting>
 
@@ -283,7 +217,7 @@ USE="acpi apm pmu sasl howl -cdr -dvdread ..."</programlisting>
       is shipped with a sane default for your USE variable. To find out what
       your current USE flags are (based on Gentoo's default USE flags plus the
       USE flags you enabled or disabled in
-      <filename>/etc/make.conf</filename>), use <command>emerge
+      <filename>/etc/portage/make.conf</filename>), use <command>emerge
       --info</command><indexterm>
           <primary>emerge</primary>
 
@@ -344,7 +278,7 @@ no matching entries found</programlisting>
 
       <programlisting># <command>mkdir /etc/portage/package.use</command>
 # <command>nano -w /etc/portage/package.use/media-flags</command>
-media-video/vlc +mp3</programlisting>
+media-video/vlc mp3</programlisting>
     </section>
   </section>
 
@@ -377,16 +311,19 @@ media-video/vlc +mp3</programlisting>
       <programlisting># <command>emerge --sync</command></programlisting>
 
       <para>You can easily configure what mirror <command>emerge</command>
-      should use. For this, open up <filename>/etc/make.conf</filename>
-      (Gentoo Portage's main configuration file) and locate the SYNC
-      setting:</para>
+      should use. For this, open up
+      <filename>/etc/portage/repos.conf</filename> or 
+      <filename>/etc/portage/repos.conf/gentoo.org</filename>
+      and locate the <varname>sync-type</varname> and <varname>sync-uri</varname>
+      settings:</para>
 
-      <programlisting># <command>nano -w /etc/make.conf</command>
+      <programlisting># <command>nano -w /etc/portage/repos.conf/gentoo.conf</command>
 <remark>(...)</remark>
-SYNC="rsync://rsync.us.gentoo.org/gentoo-portage"</programlisting>
+sync-type = uri
+sync-uri = rsync://rsync.us.gentoo.org/gentoo-portage</programlisting>
 
-      <para>The SYNC setting is set to a public Portage mirror. In the
-      example, SYNC is set to a round-robin address which covers all mirrors
+      <para>The <varname>sync-uri</varname> setting is set to a public Portage mirror. In the
+      example, <varname>sync-uri</varname> is set to a round-robin address which covers all mirrors
       in the United States of America. You can substitute the "us" country
       code with your country ("be" for Belgium, for instance) to use the
       round-robin address for the mirrors in your country.</para>
@@ -424,7 +361,7 @@ SYNC="rsync://rsync.us.gentoo.org/gentoo-portage"</programlisting>
       <para>When a news item is added, you will be notified of this at the end
       of a Portage update session:</para>
 
-      <programlisting>* IMPORTANT: 2 news items need reading for repository 'gentoo'.
+      <programlisting>* IMPORTANT: 21news items need reading for repository 'gentoo'.
 * Use eselect news to read news items.</programlisting>
 
       <para>When you find such a notice at the end of your update, you can use
@@ -434,18 +371,24 @@ SYNC="rsync://rsync.us.gentoo.org/gentoo-portage"</programlisting>
 
       <programlisting># <command>eselect news list</command>
 News items:
-  [1]   unread  2010-03-23  New desktop subprofiles for GNOME and KDE
-  [2]   unread  2010-02-28  Layman storage path changed from version 1.3.0 on
-  [3]   read    2009-04-06  Migration from teTeX to TeXLive
-  [4]   read    2009-04-06  Migration to X.org Server 1.5
-  [5]   read    2009-04-18  Generation 1 Java Setup Deprecated
-  [6]   read    2009-07-02  kdeprefix and monolithic ebuilds issues
-  [7]   read    2009-07-12  xorg-x11-7.4 and xorg-server-1.5 kernel support
-  [8]   read    2009-09-27  Qt 4.5.2 default USE flag changes
-  [9]   read    2009-10-02  Migration to X.org Server 1.6 and libxcb 1.4
-  [10]  read    2009-10-08  Upgrade to GNOME 2.26
-  [11]  read    2009-11-02  KDE3 to be masked and removed from portage
-  [12]  read    2010-01-31  Removal of libGL.la</programlisting>
+  [1]      2009-04-18  Generation 1 Java Setup Deprecated
+  [2]      2009-07-02  (2009-07-02-kdeprefix+monolithics - removed?)
+  [3]      2010-03-25  Python 3.1
+  [4]      2010-08-01  (2010-08-01-as-needed-default - removed?)
+  [5]      2010-10-22  Perl 5.12 upgrade procedure
+  [6]      2011-04-27  Upgrade to GLIB 2.28
+  [7]      2011-05-01  Baselayout update
+  [8]      2011-05-22  (2011-05-22-kdeprefix - removed?)
+  [9]      2011-08-28  Mesa r600 driver now defaults to gallium
+  [10]     2011-10-15  Upgrade to libpng15
+  [11]     2012-03-16  (2012-03-16-udev-181-unmasking - removed?)
+  [12]     2012-04-24  The default JPEG implementation
+  [13]     2012-05-21  Portage config-protect-if-modified default
+  [14]     2012-09-09  make.conf and make.profile move
+  [15]     2012-09-09  Catalyst updates
+  [16]     2012-11-06  PYTHON_TARGETS deployment
+  [17]     2013-01-23  (2013-01-23-udev-upgrade - removed?)
+  [18]  N  2013-03-29  Upgrading udev to version &gt;=200</programlisting>
 
       <para>You can then read the news items one by one (<command>eselect news
       read &lt;number&gt;</command>) but I prefer to just tell eselect to
@@ -606,8 +549,8 @@ app-portage/portage-utils (/usr/bin/qfile)</programlisting>
       <section>
         <title>Searching Software (Installed or Not) Based on File(s)</title>
 
-        <para>A Gentoo community project, called <ulink
-        url="http://www.portagefilelist.de">PortageFileList</ulink>, is
+        <para>A Gentoo community project, called <link
+        xlink:href="http://www.portagefilelist.de">PortageFileList</link>, is
         attempting to store information about files provided by all packages.
         This isn't as simple as it sounds, since the files in a package depend
         heavily on the user his system: USE flags, other installed packages
@@ -661,7 +604,7 @@ app-portage/portage-utils (/usr/bin/qfile)</programlisting>
       By default, Portage only sets up a summary log for the installation. You
       can stick with those defaults, or set up a more verbose logging:</para>
 
-      <programlisting># <command>nano /etc/make.conf</command>
+      <programlisting># <command>nano /etc/portage/make.conf</command>
 
 PORT_LOGDIR="/var/log/portage"
 PORTAGE_ELOG_SYSTEM="save"
@@ -833,7 +776,7 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
             <secondary>world</secondary>
           </indexterm>:</para>
 
-        <programlisting># <command>emerge --update --deep --new world --pretend</command></programlisting>
+        <programlisting># <command>emerge --update --deep --newuse @world --pretend</command></programlisting>
 
         <para>The options you pass on to emerge are:</para>
 
@@ -850,13 +793,13 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
           </listitem>
 
           <listitem>
-            <para><command>--new</command> (or <command>-N</command>), asking
-            emerge to update software when new dynamic switches are used (USE
-            flags),</para>
+            <para><command>--newuse</command> (or <command>-N</command>),
+            asking emerge to update software when new dynamic switches are
+            used (USE flags),</para>
           </listitem>
 
           <listitem>
-            <para>world, asking emerge to select all software that the user
+            <para>@world, asking emerge to select all software that the user
             has installed, and</para>
           </listitem>
 
@@ -871,7 +814,7 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
         <command>--pretend</command>. The next example does this using the
         single letter arguments:</para>
 
-        <programlisting># <command>emerge -uDN world</command></programlisting>
+        <programlisting># <command>emerge -uDN @world</command></programlisting>
 
         <para>Now, if you're tired of continuously running a command with
         <command>--pretend</command> only to remove the
@@ -880,6 +823,12 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
 
         <para>From now onwards, I will be using the <command>--ask</command>
         argument where appropriate.</para>
+
+        <para>You might have noticed that the world argument is prefixed with
+        the at sign (@). This is not mandatory - in the past it was without -
+        but a while ago, Portage started supporting what we call "sets" of
+        packages. The world target is one of such sets, and sets are prefixed
+        with an at sign to distinguish them from regular packages.</para>
       </section>
 
       <section>
@@ -897,7 +846,7 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
         a particular dependency, causing Portage to update that dependency as
         well.</para>
 
-        <programlisting># <command>emerge --update --new --ask world</command></programlisting>
+        <programlisting># <command>emerge --update --newuse --ask @world</command></programlisting>
       </section>
 
       <section>
@@ -917,7 +866,7 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
             <secondary>keep-going</secondary>
           </indexterm>:</para>
 
-        <programlisting># <command>emerge -uDN --keep-going world</command></programlisting>
+        <programlisting># <command>emerge -uDN --keep-going @world</command></programlisting>
       </section>
 
       <section>
@@ -933,7 +882,7 @@ mozilla-firefox: 1 hour, 15 minutes, 22 seconds for 27 merges</programlisting>
           </indexterm> (<emphasis>Gentoo Linux Security
         Advisory</emphasis><indexterm>
             <primary>Gentoo Linux Security Advisory</primary>
-          </indexterm>) documents to inform its users about possible sucurity
+          </indexterm>) documents to inform its users about possible security
         issues (except kernel issues). These GLSA documents are parsed by the
         <command>glsa-check</command><indexterm>
             <primary>glsa-check</primary>
@@ -1001,40 +950,21 @@ Available Python interpreters:
       title, your next system update will pull the software back in. Even
       worse, software that depends on it that is still being used / running
       might even stop functioning properly or crash. A safer way of pursuing
-      the desinstallation of a package is by asking Portage not to consider
-      the package as your "main" requirement using the
-      <command>--deselect</command><indexterm>
-          <primary>emerge</primary>
-
-          <secondary>deselect</secondary>
-        </indexterm> option:</para>
-
-      <programlisting># <command>emerge --deselect acroread</command></programlisting>
-
-      <para>This will not remove the package by itself. To actually remove it,
-      run <command>emerge --depclean</command><indexterm>
+      the de-installation of a package is by asking Portage to delete the
+      package but only if no other dependencies point to it. To do so, use
+      <command>emerge --depclean</command><indexterm>
           <primary>emerge</primary>
 
           <secondary>depclean</secondary>
-        </indexterm>. The <command>depclean</command> instruction asks Portage
-      to look for package that are installed but are not required any more
-      (meaning: you haven't installed it yourself explicitly or the package is
-      no dependency of another package):</para>
+        </indexterm> (or in short, <command>emerge -c</command>):</para>
 
-      <programlisting># <command>emerge --depclean --ask</command></programlisting>
+      <programlisting># <command>emerge --depclean acroread</command></programlisting>
 
-      <para>With this command, Portage will remove packages that are not in
-      use. In other words, if no other package depends upon acroread, it will
-      remove acroread as you explicitly told Portage that you don't want to
-      consider it any more. However, if some package still depends upon
-      acroread, Portage will let acroread remain on your system (until the
-      package that depends on acroread is removed or deselected as
-      well).</para>
-
-      <warning>
-        <para>Always first verify depclean's output before resuming. Never run
-        depclean if your system isn't fully up to date.</para>
-      </warning>
+      <para>With this command, Portage will remove the package if it is no
+      longer in use otherwise. In other words, if no other package depends
+      upon acroread, it will remove acroread. However, if some package still
+      depends upon acroread, Portage will let acroread remain on your system
+      and inform you of the dependencies towards it.</para>
     </section>
   </section>
 
@@ -1101,7 +1031,7 @@ Available Python interpreters:
         --info</command>:</para>
 
         <programlisting>$ <command>emerge --info | grep ACCEPT_KEYWORDS</command>
-ACCEPT_KEYWORDS="x86"</programlisting>
+ACCEPT_KEYWORDS="amd64"</programlisting>
 
         <para>Whenever a mismatch occurs (the package doesn't have the keyword
         that you have defined in <varname>ACCEPT_KEYWORDS</varname>) you get
@@ -1170,7 +1100,7 @@ ACCEPT_KEYWORDS="x86"</programlisting>
         bugs found by the architecture testers) before it is released to the
         general public.</para>
 
-        <para>WIthin Gentoo, this staging period is described by prepending
+        <para>Within Gentoo, this staging period is described by prepending
         the tilde (~) sign in front of the architecture in the
         <varname>KEYWORDS</varname> variable. In the KEYWORDS example above
         (of the iproute2 package) you notice that this is done for the mips
@@ -1184,7 +1114,7 @@ ACCEPT_KEYWORDS="x86"</programlisting>
 
         <programlisting>!!! All ebuilds that could satisfy "&gt;=sys-apps/portage-2.1.8" have been masked.
 !!! One of the following masked packages is required to complete your request:
-- sys-apps/portage-2.2_rc62 (masked by: ~x86 keyword)</programlisting>
+- sys-apps/portage-2.2_rc62 (masked by: ~amd64 keyword)</programlisting>
 
         <para>If you get such an error message, I recommend to wait until the
         package is generally available (and let the architecture testers bring
@@ -1220,8 +1150,8 @@ ACCEPT_KEYWORDS="x86"</programlisting>
 
         <para>In this example, you find out who masked the package, when the
         mask occurs, and why (including a bug number which can be checked at
-        <ulink
-        url="https://bugs.gentoo.org">https://bugs.gentoo.org</ulink>).</para>
+        <link
+        xlink:href="https://bugs.gentoo.org">https://bugs.gentoo.org</link>).</para>
       </section>
 
       <section>
@@ -1401,7 +1331,7 @@ ACCEPT_LICENSE="-* @FSF-APPROVED"</programlisting>
         reason.</para>
 
         <para>If you want to make a system-wide deviation, you need to edit
-        the <filename>/etc/make.conf</filename> file.</para>
+        the <filename>/etc/portage/make.conf</filename> file.</para>
       </section>
 
       <section>
@@ -1452,10 +1382,10 @@ ACCEPT_LICENSE="-* @FSF-APPROVED"</programlisting>
           </step>
 
           <step>
-            <para>Open <filename>/etc/make.conf</filename> in your favourite
-            text editor:</para>
+            <para>Open <filename>/etc/portage/make.conf</filename> in your
+            favourite text editor:</para>
 
-            <programlisting># <command>nano -w /etc/make.conf</command></programlisting>
+            <programlisting># <command>nano -w /etc/portage/make.conf</command></programlisting>
           </step>
 
           <step>
@@ -1535,7 +1465,7 @@ app-benchmarks/bonnie++</programlisting>
 
         <para>To allow the staging packages to be installable on your system
         (any package in the staging state), edit
-        <filename>/etc/make.conf</filename> accordingly:</para>
+        <filename>/etc/portage/make.conf</filename> accordingly:</para>
 
         <procedure>
           <step>
@@ -1546,10 +1476,10 @@ ACCEPT_KEYWORDS="x86"</programlisting>
           </step>
 
           <step>
-            <para>Open <filename>/etc/make.conf</filename> in your favourite
-            editor</para>
+            <para>Open <filename>/etc/portage/make.conf</filename> in your
+            favourite editor</para>
 
-            <programlisting># <command>nano -w /etc/make.conf</command></programlisting>
+            <programlisting># <command>nano -w /etc/portage/make.conf</command></programlisting>
           </step>
 
           <step>
@@ -1560,9 +1490,9 @@ ACCEPT_KEYWORDS="x86"</programlisting>
           </step>
 
           <step>
-            <para>Now add the staging sign as well:</para>
+            <para>Now add the staging sign to it:</para>
 
-            <programlisting>ACCEPT_KEYWORDS="x86<command> ~x86</command>"</programlisting>
+            <programlisting>ACCEPT_KEYWORDS="<command>~x86</command>"</programlisting>
           </step>
 
           <step>
@@ -1639,7 +1569,7 @@ package.mask
       environment. You should have gotten a first glance at profiles while
       installing Gentoo (if you didn't, that's okay). As a quick recap:
       profiles are a set of predefined default values made by the Gentoo
-      project to destinguish between particular uses of the distribution.
+      project to distinguish between particular uses of the distribution.
       Whereas other distributions ask you to select a particular type of
       deployment (say desktop or server) in the beginning of, or during the
       initial installation, Gentoo allows you to switch profiles whenever you
@@ -1683,20 +1613,21 @@ lrwxrwxrwx 1 root root 57 Dec 2007 make.profile -&gt;
 
       <programlisting># <command>eselect profile list</command>
 Available profile symlink targets:
-  [1]   default/linux/amd64/10.0 *
-  [2]   default/linux/amd64/10.0/selinux
-  [3]   default/linux/amd64/10.0/desktop
-  [4]   default/linux/amd64/10.0/desktop/gnome
-  [5]   default/linux/amd64/10.0/desktop/kde
-  [6]   default/linux/amd64/10.0/developer
-  [7]   default/linux/amd64/10.0/no-multilib
-  [8]   default/linux/amd64/10.0/server
+  [1]   default/linux/amd64/13.0 *
+  [2]   default/linux/amd64/13.0/selinux
+  [3]   default/linux/amd64/13.0/desktop
+  [4]   default/linux/amd64/13.0/desktop/gnome
+  [5]   default/linux/amd64/13.0/desktop/kde
+  [6]   default/linux/amd64/13.0/developer
+  [7]   default/linux/amd64/13.0/no-multilib
+  [8]   default/linux/amd64/13.0/x32
   [9]   hardened/linux/amd64
-  [10]  hardened/linux/amd64/selinux *
+  [10]  hardened/linux/amd64/selinux
   [11]  hardened/linux/amd64/no-multilib
   [12]  hardened/linux/amd64/no-multilib/selinux
+  [13]  hardened/linux/uclibc/amd64
 
-# <command>eselect profile set 4</command></programlisting>
+# <command>eselect profile set 10</command></programlisting>
 
       <para>As you can see from the profile names, one profile can be a child
       of another; if this is the case (for instance, profile number 4 from the
@@ -1738,11 +1669,11 @@ xen          [Subversion] (source: http://overlays....)</programlisting>
   <section>
     <title>When Things Go Wrong</title>
 
-    <para>Of course, both Gentoo and the upstream projects Gentoo's success
-    relies on is still ran and developed by humans, and humans are programmed
-    to make occasional mistakes, so things can go wrong. If you have
-    installation or build failures, the following sections might help you
-    troubleshoot it.</para>
+    <para>Of course, both Gentoo and the upstream projects that Gentoo relies
+    on are still ran and developed by humans, and humans are programmed to
+    make occasional mistakes, so things can go wrong. If you have installation
+    or build failures, the following sections might help you troubleshoot
+    it.</para>
 
     <section>
       <title>Portage Refuses To Install A Package</title>
@@ -1858,16 +1789,17 @@ xen          [Subversion] (source: http://overlays....)</programlisting>
         <para>Most of the time this occurs when the developer has made a
         honest mistake (he uploaded a file, found an issue, resolved it in
         Portage but forgot to upload the modified file). In this case, the
-        problem will most likely be reported to <ulink
-        url="https://bugs.gentoo.org">https://bugs.gentoo.org</ulink> and
-        quickly resolved. Try synchronising the Portage tree after a few hours
-        and retry.</para>
+        problem will most likely be reported to <link
+        xlink:href="https://bugs.gentoo.org">https://bugs.gentoo.org</link>
+        and quickly resolved. Try synchronising the Portage tree after a few
+        hours and retry.</para>
 
         <para>If it isn't, check if the problem has been reported or not. You
         can also try synchronising the Portage tree from a different Gentoo
-        mirror (change the value of the <parameter>SYNC</parameter> variable
-        in <filename>/etc/make.conf</filename>) as it might be possible that
-        the rsync server you are synchronising with is corrupt.</para>
+        mirror (change the value of the <parameter>sync-uri</parameter> variable
+        in <filename>/etc/portage/repos.conf/gentoo.org</filename>) as it might be
+        possible that the rsync server you are synchronising with is
+        corrupt.</para>
 
         <para>Another occurring problem can be that a particular file is
         missing:</para>
@@ -1881,8 +1813,9 @@ xen          [Subversion] (source: http://overlays....)</programlisting>
         is temporarily down. You can try again later or search for a different
         mirror (see the Gentoo Handbook for more information). If the file is
         really missing (i.e. other mirrors are also not hosting it), check
-        <ulink url="https://bugs.gentoo.org">https://bugs.gentoo.org</ulink>
-        to see if this is a known issue.</para>
+        <link
+        xlink:href="https://bugs.gentoo.org">https://bugs.gentoo.org</link> to
+        see if this is a known issue.</para>
       </section>
 
       <section>
@@ -1952,9 +1885,9 @@ sys-apps/dbus:0
         entire system.</para>
 
         <para>If this due to packages with conflicting dependencies, you'll
-        either need to drop one of the packages, or file a bug at <ulink
-        url="https://bugs.gentoo.org">https://bugs.gentoo.org</ulink> and ask
-        for a proper solution.</para>
+        either need to drop one of the packages, or file a bug at <link
+        xlink:href="https://bugs.gentoo.org">https://bugs.gentoo.org</link>
+        and ask for a proper solution.</para>
       </section>
 
       <section>
@@ -1977,8 +1910,8 @@ satisfy "&gt;=x11-libs/qt-sql-4.5.0:4[mysql]".
         <parameter>USE="mysql"</parameter>.</para>
 
         <para>The solution: either add the requested USE flag to your global
-        USE flags (in <filename>/etc/make.conf</filename>) or set the USE flag
-        specifically for the selected package (in
+        USE flags (in <filename>/etc/portage/make.conf</filename>) or set the
+        USE flag specifically for the selected package (in
         <filename>/etc/portage/package.use</filename>).</para>
       </section>
 
@@ -1994,8 +1927,8 @@ satisfy "&gt;=x11-libs/qt-sql-4.5.0:4[mysql]".
             to satisfy &lt;dependency&gt;</emphasis>". This shouldn't occur as
             this means an ebuild has a missing dependency or dependency which
             isn't available for you. If it does occur, please file a bug at
-            <ulink
-            url="https://bugs.gentoo.org">https://bugs.gentoo.org</ulink>.</para>
+            <link
+            xlink:href="https://bugs.gentoo.org">https://bugs.gentoo.org</link>.</para>
           </listitem>
 
           <listitem>
@@ -2078,9 +2011,10 @@ Error 2</programlisting>
         file name (usually ending in .c or .cpp) and a number (which is the
         line number in the file where the compiler found an error). Whenever
         you get such error messages, chances are that the package itself is
-        broken. You should check <ulink url="https://bugs.gentoo.org">Gentoo's
-        Bugzilla</ulink> to see if it is a known error (usually is) and if a
-        fix is already available (or a workaround).</para>
+        broken. You should check <link
+        xlink:href="https://bugs.gentoo.org">Gentoo's Bugzilla</link> to see
+        if it is a known error (usually is) and if a fix is already available
+        (or a workaround).</para>
       </section>
     </section>
   </section>
@@ -2104,7 +2038,7 @@ Error 2</programlisting>
       <para>Both variables are defined by the profile used by your system and
       expanded by the environment files offered by various applications and,
       optionally, the setting you gave inside
-      <filename>/etc/make.conf</filename>.</para>
+      <filename>/etc/portage/make.conf</filename>.</para>
     </note>
 
     <para>To be able to identify possible configuration file upgrades, Portage
@@ -2170,7 +2104,7 @@ Error 2</programlisting>
     <para>I have already covered the use of USE flags to help Portage decide
     which features you want (or don't want) in a package. However, there are
     more items that Portage needs to decide upon and you can offer your choice
-    inside <filename>/etc/make.conf</filename><indexterm>
+    inside <filename>/etc/portage/make.conf</filename><indexterm>
         <primary>make.conf</primary>
       </indexterm>, Portage' main configuration file.</para>
 
@@ -2181,15 +2115,19 @@ Error 2</programlisting>
       select what languages you want supported on your system through the
       <varname>LINGUAS</varname><indexterm>
           <primary>LINGUAS</primary>
-        </indexterm> variable. You set the LINGUAS variable in /etc/make.conf
-      with the languages of your choice. In the next example, I select the
-      English (en), Dutch (nl), French (fr) and German (de) languages.</para>
+        </indexterm> variable. You set the LINGUAS variable in
+      /etc/portage/make.conf with the languages of your choice. In the next
+      example, I select the English (en), Dutch (nl), French (fr) and German
+      (de) languages.</para>
 
-      <programlisting>~# <command>nano -w /etc/make.conf</command>
+      <programlisting>~# <command>nano -w /etc/portage/make.conf</command>
 LINGUAS="en nl fr de"</programlisting>
 
-      <para>For instance, when enabled, OpenOffice.org's ebuild will pull in
+      <para>For instance, when enabled, LibreOffice.org's ebuild will pull in
       the language packs for those languages.</para>
+
+      <para>Underlyingly, Gentoo's package manager will expand this into USE
+      flags. For instance, "linguas_en".</para>
     </section>
 
     <section>
@@ -2204,8 +2142,8 @@ LINGUAS="en nl fr de"</programlisting>
       <programlisting>VIDEO_CARDS="i915 i810 intel vesa"</programlisting>
     </section>
 
-    <section>
-      <title id="compilerdirectives">Compiler Directives</title>
+    <section xml:id="compilerdirectives">
+      <title>Compiler Directives</title>
 
       <para>When building packages, Portage offers optimization directives to
       the compiler, telling the compiler for which architecture it should
@@ -2215,7 +2153,7 @@ LINGUAS="en nl fr de"</programlisting>
         </indexterm> (C-code) and <varname>CXXFLAGS</varname><indexterm>
           <primary>CXXFLAGS</primary>
         </indexterm> (C++-code) variables, again inside
-      <filename>/etc/make.conf</filename>.</para>
+      <filename>/etc/portage/make.conf</filename>.</para>
 
       <para>I'll start off with my example CFLAGS (CXXFLAGS is the
       same):</para>
@@ -2233,8 +2171,8 @@ CXXFLAGS="${CFLAGS}"</programlisting>
       architecture, use <varname>-mcpu=</varname> instead. You can also select
       a particular architecture, like "core2" or "nocona". A full list of
       supported architectures for the current GCC (make sure you are using the
-      current one) is available <ulink
-      url="http://gcc.gnu.org/onlinedocs/gcc/i386-and-x86_002d64-Options.html">online</ulink>.</para>
+      current one) is available <link
+      xlink:href="http://gcc.gnu.org/onlinedocs/gcc/i386-and-x86_002d64-Options.html">online</link>.</para>
 
       <para>With <varname>-O2</varname> (<emphasis>O</emphasis>ptimizations,
       not zero) I ask GCC to use a list of optimization flags (-O2 is
@@ -2289,6 +2227,27 @@ CXXFLAGS="${CFLAGS}"</programlisting>
         </listitem>
       </itemizedlist>
     </section>
+
+    <section>
+      <title>Specific software choices</title>
+
+      <para>Some software items (mainly scripting languages) can have multiple
+      versions installed side by side. In Gentoo, users can not only define
+      what versions they want installed, but also for which versions other
+      software should build. For instance, applications that provide Python
+      bindings can be configured to provide Python bindings for Python version
+      2.7 and 3.2 (if supported by the application of course).</para>
+
+      <para>These software choices are provided by their respective
+      variables:</para>
+
+      <programlisting>PYTHON_TARGETS="python2_7 python3_2"
+RUBY_TARGETS="ruby18 ruby19"</programlisting>
+
+      <para>Underlyingly, Gentoo's package manager will expand these variables
+      into USE flags (like "python_targets_python2_7" or
+      "ruby_targets_ruby18").</para>
+    </section>
   </section>
 
   <section>
@@ -2297,8 +2256,8 @@ CXXFLAGS="${CFLAGS}"</programlisting>
     <para>Even when software installation has finished successfully, you can
     still get into trouble.</para>
 
-    <section>
-      <title id="revdep-rebuild">Dynamic Linking Inconsistency</title>
+    <section xml:id="revdep-rebuild">
+      <title>Dynamic Linking Inconsistency</title>
 
       <para>When Portage (prior to 2.2) upgrades a library, it removes the old
       shared libraries from the system. As a result, some applications who

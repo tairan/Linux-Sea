@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter version="5.0" xml:id="graphicenvironment"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook"
+	 xmlns:xl="http://www.w3.org/1999/xlink">
   <title>Introducing the Graphical Environment</title>
 
   <section>
@@ -69,7 +75,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="images/xschema.png" scale="75" />
+          <imagedata fileref="images/xschema.png" scale="75"/>
         </imageobject>
       </mediaobject>
     </figure>
@@ -78,10 +84,10 @@
     progress bars, labels etc.) through a common API called a <emphasis>widget
     tool kit</emphasis><indexterm>
         <primary>widget tool kit</primary>
-      </indexterm>. Popular widget tool kits on Linux are GTK+ and Qt. However,
-    not all applications require a widget tool kit - they can also talk to the
-    X server immediately. Using such tool kits however facilitates the
-    development of graphical applications.</para>
+      </indexterm>. Popular widget tool kits on Linux are GTK+ and Qt.
+    However, not all applications require a widget tool kit - they can also
+    talk to the X server immediately. Using such tool kits however facilitates
+    the development of graphical applications.</para>
 
     <para>The widget tool kits communicate with the X server through an
     interface which basically drives all commands to a <emphasis>window
@@ -127,9 +133,9 @@
     <section>
       <title>Installing Xorg</title>
 
-      <para>To install Xorg on Gentoo Linux, I suggest to read the <ulink
-      url="http://www.gentoo.org/doc/en/xorg-config.xml">X Server
-      Configuration HOWTO</ulink> from Gentoo's documentation repository. It
+      <para>To install Xorg on Gentoo Linux, I suggest to read the <link
+      xl:href="https://wiki.gentoo.org/wiki/Xorg/Configuration">X Server
+      Configuration HOWTO</link> from Gentoo's documentation repository. It
       describes how to install Xorg, configure it to work with your hardware
       and more. This chapter only gives a quick introduction to this.</para>
 
@@ -168,7 +174,7 @@
           </indexterm> and <parameter>INPUT_DEVICES</parameter><indexterm>
             <primary>INPUT_DEVICES</primary>
           </indexterm> variables are set in
-        <filename>/etc/make.conf</filename>:</para>
+        <filename>/etc/portage/make.conf</filename>:</para>
 
         <programlisting>INPUT_DEVICES="evdev keyboard mouse"
 VIDEO_CARDS="vesa intel"</programlisting>
@@ -192,8 +198,8 @@ VIDEO_CARDS="vesa intel"</programlisting>
         <title>Testing Xorg</title>
 
         <para>Try out Xorg without using any configuration file. The Xorg
-        server will try to automatically detect the necessary settings and, to be
-        honest, does a fine job at that. Don't test out things as root
+        server will try to automatically detect the necessary settings and, to
+        be honest, does a fine job at that. Don't test out things as root
         though!</para>
 
         <programlisting>$ <command>startx</command></programlisting>
@@ -205,9 +211,9 @@ VIDEO_CARDS="vesa intel"</programlisting>
         screen.</para>
 
         <para>If the graphical server doesn't seem to function properly, make
-        sure to read up on Gentoo's <ulink
-        url="http://www.gentoo.org/doc/en/xorg-config.xml">Xorg Server
-        Configuration HOWTO</ulink>.</para>
+        sure to read up on Gentoo's <link
+        xl:href="https://wiki.gentoo.org/wiki/Xorg/Configuration">Xorg Server
+        Configuration HOWTO</link>.</para>
       </section>
     </section>
   </section>
@@ -235,9 +241,9 @@ VIDEO_CARDS="vesa intel"</programlisting>
       emerge it.</para>
 
       <para>For fluxbox, a popular, lightweight window manager, Gentoo even
-      has official documentation available: the <ulink
-      url="http://www.gentoo.org/doc/en/fluxbox-config.xml">Fluxbox
-      Configuration HOWTO</ulink>.</para>
+      has official documentation available: the <link
+      xl:href="http://www.gentoo.org/doc/en/fluxbox-config.xml">Fluxbox
+      Configuration HOWTO</link>.</para>
     </section>
 
     <section>
@@ -270,31 +276,15 @@ VIDEO_CARDS="vesa intel"</programlisting>
       <para>The GNOME<indexterm>
           <primary>GNOME</primary>
         </indexterm> desktop environment is the default desktop environment
-      for many Linux distributions, including Ubuntu and Fedora. Its desktop
+      for many Linux distributions such as Fedora and RHEL. Its desktop
       is very simple to use: the number of visible options is kept low to not
       confuse users, and all applications that want to integrate with the
       GNOME desktop should adhere to various guidelines such as the user
       interface guideline.</para>
 
-      <para>The GNOME community offers a good introduction to the graphical
-      environment called the <ulink
-      url="http://www.gnome.org/learn/users-guide/latest/">GNOME User
-      Guide</ulink>.</para>
-
-      <para>Gentoo has a <ulink
-      url="http://www.gentoo.org/doc/en/gnome-config.xml">GNOME Configuration
-      HOWTO</ulink> available as well.</para>
-
-      <figure>
-        <title>An example view of a GNOME desktop</title>
-
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="images/gnomedesktop.png" scale="75"
-                       width="13cm" />
-          </imageobject>
-        </mediaobject>
-      </figure>
+      <para>Gentoo has a <link
+      xl:href="http://www.gentoo.org/doc/en/gnome-config.xml">GNOME Configuration
+      HOWTO</link> available as well.</para>
     </section>
 
     <section>
@@ -306,19 +296,9 @@ VIDEO_CARDS="vesa intel"</programlisting>
       (browsers, IM, P2P) to office tools, multimedia tools, authoring and
       even development environments.</para>
 
-      <para>Gentoo provides a <ulink
-      url="http://www.gentoo.org/doc/en/kde-config.xml">KDE Configuration
-      HOWTO</ulink>.</para>
-
-      <figure>
-        <title>An example view of a KDE desktop</title>
-
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="images/kdedesktop.png" scale="75" />
-          </imageobject>
-        </mediaobject>
-      </figure>
+      <para>Gentoo provides a <link
+      xl:href="http://wiki.gentoo.org/wiki/KDE">KDE Configuration
+      HOWTO</link>.</para>
     </section>
 
     <section>
@@ -329,20 +309,9 @@ VIDEO_CARDS="vesa intel"</programlisting>
       memory systems just to reduce the memory overhead of the graphical
       environment.</para>
 
-      <para>Gentoo provides an <ulink
-      url="http://www.gentoo.org/doc/en/xfce-config.xml">XFCE Configuration
-      Howto</ulink>.</para>
-
-      <figure>
-        <title>An example view of an XFCE4 desktop</title>
-
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="images/xfce4desktop.png" scale="75"
-                       scalefit="" />
-          </imageobject>
-        </mediaobject>
-      </figure>
+      <para>Gentoo provides an <link
+      xl:href="http://www.gentoo.org/doc/en/xfce-config.xml">XFCE Configuration
+      Howto</link>.</para>
     </section>
 
     <section>

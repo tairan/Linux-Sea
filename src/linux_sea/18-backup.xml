@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter>
+<chapter version="5.0" xml:id="backup" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook"
+	 xmlns:xl="http://www.w3.org/1999/xlink">
   <title>Taking Backups</title>
 
   <section>
     <title>Introduction</title>
 
-    <para>Before we finish this book, lets focus on backups and restores. After
-    all, you don't want to put all that effort in your Linux system, only to
-    see it vanish with the next power surge or
+    <para>Before we finish this book, lets focus on backups and restores.
+    After all, you don't want to put all that effort in your Linux system,
+    only to see it vanish with the next power surge or
     daughter-spilled-milk-over-my-laptop incident.</para>
   </section>
 
@@ -32,10 +37,10 @@
       <para>First of all, take a copy of your <filename>/etc</filename>
       folder. The <filename>/etc</filename> directory contains all system
       settings, including your file system table (<filename>fstab</filename>),
-      Portage-specific settings (<filename>/etc/make.conf</filename>,
-      <filename>/etc/portage</filename>), service configuration files (in
-      <filename>/etc/conf.d</filename> and <filename>/etc/env.d</filename>),
-      ... Really, this location is not to be forgotten.</para>
+      Portage-specific settings (<filename>/etc/portage</filename>), service
+      configuration files (in <filename>/etc/conf.d</filename> and
+      <filename>/etc/env.d</filename>), ... Really, this location is not to be
+      forgotten.</para>
 
       <para>Next, there are a few non-/etc files or directories that you want
       to copy as well.</para>
@@ -76,7 +81,7 @@
       configuration settings, so finding which ones to back up and which not
       might be difficult. However, one way that works for me (and which
       usually doesn't include the end users' personal files) is to backup all
-      <filename>${HOME}/.??*</filename> files and directories. Most
+      <filename>${HOME}/.[^.]*</filename> files and directories. Most
       configuration directories (or files) are hidden files (i.e. starting
       with a period).</para>
     </section>
@@ -87,14 +92,14 @@
       <para>The following command will make an archive of the above mentioned
       settings.</para>
 
-      <programlisting>~# <command>tar cvzpf /var/tmp/poormanbackup.tar.gz /etc /var/lib/portage/world /usr/local /proc/config.gz /home/*/.??*</command></programlisting>
+      <programlisting>~# <command>tar cvzf /var/tmp/poormanbackup.tar.gz /etc /var/lib/portage/world /usr/local /proc/config.gz /home/*/.[^.]*</command></programlisting>
 
       <para>Again, this is just a poor man's backup, because it is not really
       managed, but it is still better than nothing. Make sure you copy the
       poormanbackup.tar.gz to a safe(r) place. Note that it will still be
       fairly large, because of the end user copy (as it contains lots of
       software caches, like your browsers' cache). If you drop the end user
-      directories (the <filename>/home/*/.??*</filename>) the file is reduced
+      directories (the <filename>/home/*/.[^.]*</filename>) the file is reduced
       from many dozens (up to hundreds) of megabytes down to about half a
       megabyte.</para>
 
@@ -147,7 +152,7 @@ keep = 60
 include = /etc
 include = /var/lib/portage/world
 include = /usr/local
-include = /home/*/.??*
+include = /home/*/.[^.]*
 exclude = /home/*/.mozilla/firefox/*.default/Cache
 
 [dest]
@@ -228,7 +233,7 @@ directory = /var/backups/backupninja</programlisting>
       partitions, reinstall the bootloader, etc.</para>
 
       <para>Compared with the poor man's backup approach described above, this
-      can be seen as a "entire system poor man's backup", with
+      can be seen as an "entire system poor man's backup", with
       optionally</para>
 
       <itemizedlist>
@@ -249,11 +254,11 @@ sfdisk /dev/sda &lt; /media/usb/full-stage-backup/sfdisk.dat</programlisting>
           <para>Restoration of the boot loader</para>
 
           <programlisting>(Restore: command after restoring /boot content)
-grub-install --root-directory=/mnt/gentoo/boot /dev/hda</programlisting>
+grub-install --root-directory=/mnt/gentoo/boot /dev/sda</programlisting>
         </listitem>
 
         <listitem>
-          <para>Reformatting of partitions (be carefull here, this is very
+          <para>Reformatting of partitions (be careful here, this is very
           error-prone and specific for your system)</para>
 
           <programlisting>(Backup)
@@ -284,11 +289,9 @@ mount | grep -v 'dev/mapper' | grep -v 'dev/md' | grep 'type ext' | awk -F' ' '{
       Then, run the following <command>tar</command> command to create the
       archive:</para>
 
-      <programlisting>~# <command>tar -cvzpf /media/usb/backup/stage4.tar.gz --numeric-owner --strip-components=2 /mnt/gentoo</command></programlisting>
+      <programlisting>~# <command>tar -cvzf /media/usb/backup/stage4.tar.gz --strip-components=2 /mnt/gentoo</command></programlisting>
 
-      <para>The <option>--numeric-owner</option> will ensure that uid/gid
-      numbers are used rather than names, because the live environment can use
-      different name/id pairs than your own system. By using
+      <para>By using
       <option>--strip-components=2</option>, all files are stored in the
       archive without the leading "<filename>/mnt/gentoo</filename>".</para>
 

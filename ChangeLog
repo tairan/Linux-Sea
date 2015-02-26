@@ -1,3 +1,79 @@
+** (2014-11-27) João Alberto <joaoff@REDACTED>
+	- Fix some inconsistenties in file names used as examples in chapter 4
+
+** (2014-08-05) Gerard Henri Pille <ghpille@gmail.com>
+	- Fix location of resolv.conf in installation instructions
+	- No need to download the Portage snapshot anymore
+
+** (2014-06-17) Matthew Marchese <mmarchese@pcopen.net>
+	- Spelling and grammar suggested changes
+
+** (2014-04-12) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Use sda syntax for disks rather than hda.
+	  Thanks to matteo "Ddevil"
+
+** (2014-03-29) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Use TODO as filename instead of opentasks.txt to match the image
+	  Thanks to Matteo "Ddevil"
+
+** (2014-02-09) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- make.conf is in /etc/portage, thanks to Pablo Vázquez
+
+** (2013-12-17) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Updated "Linux has little support for games" as suggested
+	  by Johannes Huber (cfr Valve and Steam for Linux)
+	- Switch from SYNC to sync-type and sync-uri
+
+** (2013-12-16) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Add ZFS and XFS as filesystems in chapter 5 (Linux file systems)
+	- Add UUID info in file system chapter
+	- Add getfattr/setfattr and POSIX ACLs in the ownership/permissions
+	  section
+	- Add PYTHON_TARGETS and RUBY_TARGETS info in software management
+	  chapter
+	- Use cronie instead of vixie-cron
+
+** (2013-10-06) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Updates reported by Francesco Turco:
+	  - LibreOffice instead of OpenOffice
+	  - Document bzless usage as well
+	  - Fix typo in 'a mort short-hand' -> 'a short-hand'
+	  - Document 'make -j#' for kernel builds
+	  - Point to ALSA article on wiki
+	  - Typo in USE flag configuration in vlc example
+	  - Typo in software configuration (emerge --newuse, not --new)
+	  - Wrong grep instruction for finding removable media
+	  - Faint of heart, not faint of hearted.
+	  - Current stable profiles are '13.0'
+	  - Point to Xorg/Configuration article on wiki
+	  - Point to KDE article on wiki
+	  - Use '.?*' instead of '.??*' to catch single-char files/directories
+	    in the home directory backup approach
+	  - Drop numeric-owner, is already implied while creating the archive
+	  - Fix typo whomever -> whoever
+	  - Use [ ... ] in tests and description
+	  - Refer to official Gentoo wiki
+
+** (2013-08-18) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Switch to GRUB2
+	- Explain devtmpfs a bit where we currently already explain other
+	  "special" file systems
+
+** (2013-04-02) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Update on kernel numbering (now on 3.x series) and description of the
+	  numbering fields
+	- Use KDE 4.9 release date example instead of 4.1
+	- Add social online communities
+	- /dev nowadays is also kernel-provided (well, optionally)
+	- Use /etc/portage for make.conf
+	- Drop section on HAL (and automounting)
+	- Drop screenshots of graphical environments (outdated)
+
+** (2012-10-28) Sven Vermeulen <sven.vermeulen@siphos.be>
+	- Many changes thanks to Francesco Turco
+	- Added in information on sets (like @world)
+	- Convert towards DocBook version 5
+
 ** (2012-04-03) Sven Vermeulen <sven.vermeulen@siphos.be>
 	- Update regarding separate /usr or not
 	- Introduce btrfs information and switch to ext4 as "default"
